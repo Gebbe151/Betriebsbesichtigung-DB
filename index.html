@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Vorbereitung ICE-Werk Berlin-Rummelsburg</title>
+  <style>
+    :root{
+      --red:#d71920;--red-dark:#a50f15;--ink:#18212b;--muted:#5c6874;
+      --line:#d9dee4;--soft:#f3f5f7;--paper:#fff;--blue:#164b73;
+      --green:#147a4b;--amber:#9b6500;--shadow:0 10px 32px rgba(20,31,43,.10);
+      --radius:18px;--max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#eef1f4;line-height:1.55}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #1976d2;outline-offset:3px}
+    a{color:var(--blue)}
+    .skip{position:absolute;left:-9999px;top:0;background:#fff;padding:.7rem;z-index:100}
+    .skip:focus{left:1rem;top:1rem}
+    .topbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+    .topbar-inner{max-width:var(--max);margin:auto;padding:.7rem 1rem;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center}
+    .brand{display:flex;align-items:center;gap:.65rem;font-weight:800;white-space:nowrap}
+    .brand-mark{display:grid;place-items:center;width:40px;height:32px;color:#fff;background:var(--red);border-radius:6px;font-size:.82rem;letter-spacing:.05em}
+    .progress-wrap{height:10px;background:#e4e8ec;border-radius:99px;overflow:hidden}
+    .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--red),#f05a60);transition:width .35s ease}
+    .progress-text{font-size:.8rem;color:var(--muted);text-align:right;white-space:nowrap}
+    .layout{max-width:var(--max);margin:auto;display:grid;grid-template-columns:250px minmax(0,1fr);gap:1.25rem;padding:1.25rem 1rem 4rem}
+    nav{position:sticky;top:78px;align-self:start;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:.75rem;box-shadow:var(--shadow);max-height:calc(100vh - 96px);overflow:auto}
+    nav h2{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:.35rem .55rem .7rem}
+    .nav-btn{display:flex;width:100%;align-items:center;gap:.7rem;border:0;background:transparent;color:var(--ink);padding:.64rem .65rem;border-radius:10px;text-align:left;font-weight:650}
+    .nav-btn:hover{background:var(--soft)}
+    .nav-btn.active{background:#feecee;color:#9c1016}
+    .nav-num{flex:0 0 28px;height:28px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:.8rem;background:#fff}
+    .nav-btn.done .nav-num{background:var(--green);border-color:var(--green);color:#fff}
+    main{min-width:0}
+    .module{display:none;animation:fade .25s ease}
+    .module.active{display:block}
+    @keyframes fade{from{opacity:.45;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .hero{background:linear-gradient(135deg,#17212b 0%,#25394b 62%,#4b1c20 100%);color:#fff;border-radius:26px;padding:clamp(1.6rem,4vw,3.3rem);box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .hero:after{content:"ICE";position:absolute;right:-.3rem;bottom:-3rem;font-weight:900;font-size:clamp(7rem,22vw,14rem);line-height:1;color:rgba(255,255,255,.04)}
+    .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;font-weight:800;color:#f2a0a4}
+    h1{font-size:clamp(2rem,5vw,4rem);line-height:1.05;margin:.45rem 0 1rem;max-width:850px}
+    h2{font-size:clamp(1.55rem,3vw,2.35rem);line-height:1.15;margin:.2rem 0 .8rem}
+    h3{font-size:1.16rem;margin:1.4rem 0 .55rem}
+    p{margin:.45rem 0 1rem}
+    .lead{font-size:1.12rem;max-width:760px;color:#dce3ea}
+    .chips{display:flex;gap:.55rem;flex-wrap:wrap;margin:1.4rem 0}
+    .chip{padding:.42rem .75rem;border:1px solid rgba(255,255,255,.24);border-radius:99px;background:rgba(255,255,255,.08);font-weight:700;font-size:.9rem}
+    .btn{border:0;border-radius:10px;padding:.72rem 1rem;font-weight:750;background:var(--red);color:#fff;display:inline-flex;align-items:center;gap:.45rem;justify-content:center}
+    .btn:hover{background:var(--red-dark)}
+    .btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+    .btn.secondary:hover{background:var(--soft)}
+    .btn.small{padding:.45rem .7rem;font-size:.88rem}
+    .actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.2rem}
+    .panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1rem,2.5vw,1.7rem);box-shadow:var(--shadow);margin:1rem 0}
+    .grid-2,.grid-3,.facts{display:grid;gap:1rem}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .facts{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:1rem}
+    .fact{background:#fff;border-top:4px solid var(--red);border-radius:12px;padding:1rem;color:var(--ink);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+    .fact b{display:block;font-size:1.12rem}
+    .fact span{color:var(--muted);font-size:.9rem}
+    .info{border-left:4px solid var(--blue);background:#eef6fc;padding:1rem 1.1rem;border-radius:0 12px 12px 0}
+    .warning{border-left-color:var(--red);background:#fff0f1}
+    .good{border-left-color:var(--green);background:#edf8f2}
+    .muted{color:var(--muted)}
+    .small{font-size:.88rem}
+    .route{display:flex;align-items:center;gap:0;margin:1.25rem 0;overflow:auto;padding:.5rem 0}
+    .station{min-width:145px;text-align:center;font-weight:750;position:relative;padding-top:2.2rem}
+    .station:before{content:"";position:absolute;top:.6rem;left:50%;width:22px;height:22px;border-radius:50%;background:#fff;border:6px solid #07834a;transform:translateX(-50%);z-index:2}
+    .station:not(:last-child):after{content:"";position:absolute;top:1.2rem;left:50%;right:-50%;height:6px;background:#07834a}
+    .station.target:before{border-color:var(--red)}
+    .station.target{color:var(--red)}
+    .checklist{display:grid;gap:.55rem}
+    .check{display:flex;gap:.7rem;align-items:flex-start;padding:.72rem;border:1px solid var(--line);border-radius:10px;background:#fff}
+    .check input{margin-top:.25rem;transform:scale(1.25);accent-color:var(--green)}
+    .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1rem 0}
+    .stat{background:var(--soft);border-radius:14px;padding:1rem;text-align:center}
+    .stat strong{display:block;font-size:1.65rem;color:var(--red)}
+    .tablist{display:flex;gap:.5rem;flex-wrap:wrap;margin:.8rem 0}
+    .tab{border:1px solid var(--line);background:#fff;padding:.6rem .85rem;border-radius:99px;font-weight:750}
+    .tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .org-detail{min-height:165px;border:1px solid var(--line);border-radius:14px;padding:1rem;background:var(--soft)}
+    .process-list{display:grid;gap:.55rem;margin:1rem 0;padding:0;list-style:none;counter-reset:step}
+    .process-item{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:.7rem;background:#fff;border:1px solid var(--line);border-radius:11px;padding:.65rem;counter-increment:step}
+    .process-item:before{content:counter(step);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800}
+    .move{display:flex;gap:.25rem}
+    .move button{border:1px solid var(--line);background:var(--soft);border-radius:7px;width:32px;height:32px}
+    .feedback{display:none;margin-top:.8rem;padding:.8rem 1rem;border-radius:10px;font-weight:650}
+    .feedback.show{display:block}
+    .feedback.ok{background:#eaf7f0;color:#0c643d}
+    .feedback.bad{background:#fff1e3;color:#7b4b00}
+    .sort-row{display:grid;grid-template-columns:1fr 190px;gap:.8rem;align-items:center;border-bottom:1px solid var(--line);padding:.7rem 0}
+    select{width:100%;padding:.55rem;border:1px solid #aeb7c0;border-radius:8px;background:#fff}
+    .train-stage{border:1px solid var(--line);border-radius:16px;background:linear-gradient(#eef5fa,#fff);padding:1rem;overflow:auto}
+    .train-svg{min-width:680px;width:100%;height:auto;display:block}
+    .hotspot{cursor:pointer;transition:.2s;stroke:#fff;stroke-width:3}
+    .hotspot:hover,.hotspot.active{filter:brightness(.82);stroke:#17212b;stroke-width:4}
+    .component-detail{border-top:4px solid var(--red);background:#fff;margin-top:1rem;padding:1rem;border-radius:12px;min-height:155px}
+    .label{display:inline-block;border-radius:99px;background:#e7edf2;padding:.2rem .55rem;font-size:.78rem;font-weight:800;margin-right:.35rem}
+    .ultra{position:relative;height:210px;border-radius:16px;background:#152331;overflow:hidden;color:#fff;margin:1rem 0}
+    .shaft{position:absolute;left:10%;right:10%;top:76px;height:60px;background:linear-gradient(#adb7c2,#6e7b88,#aeb8c2);border-radius:30px;box-shadow:inset 0 0 0 4px rgba(0,0,0,.18)}
+    .probe{position:absolute;left:11%;top:45px;width:44px;height:38px;background:#f2bd27;border-radius:8px 8px 3px 3px}
+    .pulse{position:absolute;left:15%;top:82px;width:16px;height:48px;border:4px solid #42d6ff;border-radius:50%;opacity:0}
+    .ultra.scan .pulse{animation:scan 1.5s ease-out infinite}
+    @keyframes scan{0%{transform:translateX(0) scale(.5);opacity:.9}85%{transform:translateX(520px) scale(1.5);opacity:.4}100%{transform:translateX(560px) scale(1.6);opacity:0}}
+    .flaw{position:absolute;left:61%;top:94px;width:5px;height:27px;background:#51252a;transform:rotate(24deg);display:none}
+    .ultra.fault .flaw{display:block}
+    .echo{position:absolute;right:5%;top:18px;width:230px;height:46px;border-left:2px solid #7b8a98;border-bottom:2px solid #7b8a98}
+    .echo:after{content:"";position:absolute;left:45%;bottom:0;width:3px;height:0;background:#42d6ff;transition:height .4s}
+    .ultra.scan .echo:after{height:22px}
+    .ultra.scan.fault .echo:after{height:42px;background:#ff696f}
+    .scenario,.quiz-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:1rem;margin:.8rem 0}
+    .options{display:grid;gap:.45rem;margin:.7rem 0}
+    .option{display:flex;gap:.55rem;align-items:flex-start;padding:.58rem;border:1px solid var(--line);border-radius:9px}
+    .option:hover{background:var(--soft)}
+    .option input{margin-top:.27rem;accent-color:var(--red)}
+    .q-list{display:grid;gap:.55rem}
+    .q-item{display:flex;gap:.7rem;padding:.75rem;border:1px solid var(--line);border-radius:10px;background:#fff}
+    .q-item input{margin-top:.25rem;transform:scale(1.2);accent-color:var(--red)}
+    textarea{width:100%;min-height:110px;padding:.8rem;border:1px solid #aeb7c0;border-radius:10px;resize:vertical}
+    details{border:1px solid var(--line);border-radius:10px;background:#fff;margin:.55rem 0;padding:.7rem .85rem}
+    summary{cursor:pointer;font-weight:800}
+    .module-footer{display:flex;justify-content:space-between;gap:.8rem;margin:1.2rem 0}
+    .source-list li{margin:.65rem 0}
+    .result{font-size:1.15rem;font-weight:800;padding:1rem;border-radius:12px;background:var(--soft)}
+    .print-summary{display:none}
+    .footer{text-align:center;color:var(--muted);padding:1.5rem 1rem;font-size:.85rem}
+    @media(max-width:900px){
+      .layout{grid-template-columns:1fr}.topbar-inner{grid-template-columns:auto 1fr}.progress-text{display:none}
+      nav{position:static;display:flex;overflow:auto;gap:.35rem;padding:.55rem;border-radius:14px;box-shadow:none}
+      nav h2{display:none}.nav-btn{width:auto;white-space:nowrap;border:1px solid var(--line)}.nav-btn span:last-child{display:none}
+      .grid-3,.facts{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:620px){
+      .brand span:last-child{display:none}.grid-2,.grid-3,.facts,.stat-grid{grid-template-columns:1fr}
+      .sort-row{grid-template-columns:1fr}.hero{border-radius:18px}.panel{border-radius:14px}.layout{padding:.7rem .65rem 3rem}
+      .module-footer{flex-direction:column}.module-footer .btn{width:100%}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+    @media print{
+      body{background:#fff;font-size:11pt}.topbar,nav,.module,.footer{display:none!important}.layout{display:block;padding:0}.print-summary{display:block!important}
+      .panel{box-shadow:none;border:0;padding:0}.no-print{display:none!important}a{color:#000;text-decoration:none}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark">ICE</span><span>Werk Rummelsburg</span></div>
+      <div class="progress-wrap" aria-label="Bearbeitungsfortschritt"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-text" id="progressText">0 von 9 Modulen</div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav aria-label="Lernmodule" id="navigation">
+      <h2>Lernweg</h2>
+      <button class="nav-btn active" data-target="start"><span class="nav-num">1</span><span>Besuch im Überblick</span></button>
+      <button class="nav-btn" data-target="werk"><span class="nav-num">2</span><span>Werk und Organisation</span></button>
+      <button class="nav-btn" data-target="prozess"><span class="nav-num">3</span><span>Weg durch das Werk</span></button>
+      <button class="nav-btn" data-target="technik"><span class="nav-num">4</span><span>Technik des ICE</span></button>
+      <button class="nav-btn" data-target="diagnose"><span class="nav-num">5</span><span>Diagnose und Prüfung</span></button>
+      <button class="nav-btn" data-target="icel"><span class="nav-num">6</span><span>Fallbeispiel ICE L</span></button>
+      <button class="nav-btn" data-target="sicherheit"><span class="nav-num">7</span><span>Sicherheit</span></button>
+      <button class="nav-btn" data-target="fragen"><span class="nav-num">8</span><span>Fragen und Beobachten</span></button>
+      <button class="nav-btn" data-target="abschluss"><span class="nav-num">9</span><span>Abschlusscheck</span></button>
+    </nav>
+
+    <main id="main">
+      <section class="module active" id="start" data-index="0">
+        <div class="hero">
+          <div class="eyebrow">Fachoberschule Technik · BBS Meppen</div>
+          <h1>Bereit für das ICE-Werk Berlin-Rummelsburg</h1>
+          <p class="lead">Wie wird aus einem angekommenen Fernzug wieder ein sicherer, sauberer und einsatzbereiter Zug? Diese Vorbereitung führt dich durch Organisation, Technik, Diagnose und Sicherheit.</p>
+          <div class="chips"><span class="chip">28.10.2026</span><span class="chip">10:00 Uhr</span><span class="chip">2,5–3 Stunden</span><span class="chip">ca. 10 Personen</span></div>
+          <button class="btn" data-next="werk">Vorbereitung starten</button>
+        </div>
+
+        <div class="facts">
+          <div class="fact"><b>Treffpunkt</b><span>S-Bahnhof Betriebsbahnhof Rummelsburg</span></div>
+          <div class="fact"><b>Anreise</b><span>S3 Richtung Erkner oder Friedrichshagen</span></div>
+          <div class="fact"><b>Besichtigung</b><span>Instandhaltung, Bereitstellung und BSL</span></div>
+          <div class="fact"><b>Kosten</b><span>Die Führung ist kostenfrei</span></div>
+        </div>
+
+        <div class="panel">
+          <h2>Anreise ohne Verwechslung</h2>
+          <p>Die Zielstation heißt <strong>Betriebsbahnhof Rummelsburg</strong>. Sie ist nicht mit dem weiter westlich gelegenen S-Bahnhof <strong>Berlin-Rummelsburg</strong> zu verwechseln.</p>
+          <div class="route" aria-label="Schematische Anreise mit der S3">
+            <div class="station">Hauptbahnhof</div><div class="station">Ostbahnhof</div><div class="station">Ostkreuz</div><div class="station target">Betriebsbahnhof Rummelsburg</div>
+          </div>
+          <div class="info"><strong>Am Treffpunkt:</strong> Die Gruppe wird am S-Bahnhof abgeholt und gemeinsam in das Werk geführt. Nicht eigenständig zum Betriebsgelände laufen.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <h2>Deine Vorbereitung</h2>
+            <div class="checklist" id="prepChecklist">
+              <label class="check"><input type="checkbox"><span>Festes, geschlossenes Schuhwerk einplanen</span></label>
+              <label class="check"><input type="checkbox"><span>Wetterfeste, unempfindliche Kleidung einplanen</span></label>
+              <label class="check"><input type="checkbox"><span>Nur notwendiges Gepäck mitnehmen</span></label>
+              <label class="check"><input type="checkbox"><span>Bild- und Tonaufnahmen im Werk unterlassen</span></label>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Ziel der Vorbereitung</h2>
+            <p>Du sollst vor Ort nicht nur Maschinen sehen, sondern verstehen, <strong>warum</strong> Arbeitsschritte notwendig sind und <strong>wie</strong> Sicherheit, Technik und Zeitplanung zusammenhängen.</p>
+            <div class="info warning"><strong>Wichtig:</strong> Sicherheitsanweisungen des Werkpersonals haben jederzeit Vorrang.</div>
+          </div>
+        </div>
+        <div class="module-footer"><span></span><button class="btn" data-complete="start" data-next="werk">Weiter: Werk und Organisation</button></div>
+      </section>
+
+      <section class="module" id="werk" data-index="1">
+        <div class="panel">
+          <div class="eyebrow">Modul 2</div><h2>Ein Werk zwischen Technik und Fahrplan</h2>
+          <p>Das Werk gehört zum Bereich <strong>Bereitstellung und Instandhaltung der DB Fernverkehr AG</strong>. Seine Aufgabe besteht darin, Fernverkehrszüge technisch sicher und rechtzeitig für den nächsten Einsatz verfügbar zu machen. Dafür müssen Technik, Material, Personal, Reinigung, Versorgung und Rangierbewegungen ineinandergreifen.</p>
+          <div class="stat-grid">
+            <div class="stat"><strong>625.000 m²</strong><span>Betriebsfläche, Stand 2018</span></div>
+            <div class="stat"><strong>27 km</strong><span>Gleislänge, Stand 2018</span></div>
+            <div class="stat"><strong>4 Hallen</strong><span>mit 10 Behandlungsgleisen, Stand 2018</span></div>
+          </div>
+          <p class="small muted">Die Zahlen sind ein historischer Stand aus dem DB-Faktenblatt 2018. Nachfolgende Ausbauten verändern Kapazitäten und Anlagen. 2019 nannte das Land Berlin rund 75 täglich gereinigte, kontrollierte und reparierte Fernzüge am Standort.</p>
+        </div>
+
+        <div class="panel">
+          <h2>Wer arbeitet zusammen?</h2>
+          <p>Wähle einen Bereich aus. Die Darstellung zeigt typische Aufgaben und Schnittstellen, keine vollständige interne Organisationsstruktur.</p>
+          <div class="tablist" role="tablist" aria-label="Arbeitsbereiche">
+            <button class="tab" role="tab" aria-selected="true" data-org="steuerung">Steuerung</button>
+            <button class="tab" role="tab" aria-selected="false" data-org="technik">Technik</button>
+            <button class="tab" role="tab" aria-selected="false" data-org="bereit">Bereitstellung</button>
+            <button class="tab" role="tab" aria-selected="false" data-org="logistik">Logistik</button>
+            <button class="tab" role="tab" aria-selected="false" data-org="qualitaet">Qualität</button>
+          </div>
+          <div class="org-detail" id="orgDetail" role="tabpanel"></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel"><h3>Instandhaltung</h3><p>Sie stellt den technischen Sollzustand fest oder wieder her: prüfen, warten, Fehler diagnostizieren, Bauteile instand setzen oder austauschen, Funktionen testen und Arbeiten dokumentieren.</p></div>
+          <div class="panel"><h3>Bereitstellung</h3><p>Sie macht den Zug für die konkrete Fahrt einsatzbereit: reinigen, Wasser ver- und entsorgen, Bordgastronomie versorgen, Zug- und Reservierungsdaten aufspielen sowie Abstellung und Zuführung koordinieren.</p></div>
+        </div>
+        <div class="info"><strong>BSL als Gesprächsanlass:</strong> Die Besuchsunterlagen kündigen einen Einblick in die „Bereitstellung (BSL)“ an. Die genaue interne Bezeichnung und Aufgabenabgrenzung fragt ihr während der Führung nach.</div>
+        <div class="module-footer"><button class="btn secondary" data-prev="start">Zurück</button><button class="btn" data-complete="werk" data-next="prozess">Weiter: Prozess</button></div>
+      </section>
+
+      <section class="module" id="prozess" data-index="2">
+        <div class="panel">
+          <div class="eyebrow">Modul 3</div><h2>Vom ankommenden Zug zur nächsten Fahrt</h2>
+          <p>Ein Werkaufenthalt ist ein vernetzter Prozess. Der folgende Ablauf ist ein fachlich vereinfachtes Modell. Je nach Fahrzeug, Befund und verfügbarer Zeit können Arbeiten parallel oder in anderer Reihenfolge stattfinden.</p>
+          <ol class="process-list" id="processList"></ol>
+          <div class="actions"><button class="btn secondary" id="shuffleProcess">Neu mischen</button><button class="btn" id="checkProcess">Reihenfolge prüfen</button></div>
+          <div class="feedback" id="processFeedback" aria-live="polite"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Bereitstellung oder Instandhaltung?</h2>
+          <p>Ordne die Tätigkeiten zu. „Schnittstelle“ bedeutet, dass mehrere Bereiche koordiniert zusammenarbeiten müssen.</p>
+          <div id="sortTask"></div>
+          <button class="btn" id="checkSort">Zuordnung prüfen</button>
+          <div class="feedback" id="sortFeedback" aria-live="polite"></div>
+        </div>
+        <div class="module-footer"><button class="btn secondary" data-prev="werk">Zurück</button><button class="btn" data-complete="prozess" data-next="technik">Weiter: Technik</button></div>
+      </section>
+
+      <section class="module" id="technik" data-index="3">
+        <div class="panel">
+          <div class="eyebrow">Modul 4</div><h2>Technische Systeme eines ICE</h2>
+          <p>Ein Hochgeschwindigkeitszug ist ein gekoppeltes Gesamtsystem. Ein Fehler an einer scheinbar kleinen Komponente kann Sicherheit, Komfort oder Einsatzfähigkeit beeinflussen. Klicke auf die farbigen Baugruppen.</p>
+          <div class="train-stage">
+            <svg class="train-svg" viewBox="0 0 900 300" role="img" aria-labelledby="trainTitle trainDesc">
+              <title id="trainTitle">Schematische Seitenansicht eines Hochgeschwindigkeitszuges</title>
+              <desc id="trainDesc">Anklickbare Bereiche für Wagenkasten, Stromabnehmer, Türen, Drehgestelle, Radsätze, Bremse, Antrieb und Klimaanlage.</desc>
+              <path d="M55 190 Q75 82 220 70 H740 Q835 85 865 155 L875 198 H55Z" fill="#f8fafc" stroke="#607080" stroke-width="4"/>
+              <path d="M90 145 Q115 95 230 89 H732 Q795 98 827 145Z" fill="#c8d6e2"/>
+              <g fill="#31485c"><rect x="150" y="104" width="70" height="32" rx="5"/><rect x="242" y="104" width="70" height="32" rx="5"/><rect x="334" y="104" width="70" height="32" rx="5"/><rect x="512" y="104" width="70" height="32" rx="5"/><rect x="604" y="104" width="70" height="32" rx="5"/><rect x="696" y="104" width="58" height="32" rx="5"/></g>
+              <rect class="hotspot" tabindex="0" role="button" aria-label="Wagenkasten" data-part="wagen" x="280" y="150" width="330" height="42" rx="8" fill="#e34a4f"/>
+              <rect class="hotspot" tabindex="0" role="button" aria-label="Türsystem" data-part="tuer" x="628" y="143" width="58" height="73" rx="7" fill="#f0ae2c"/>
+              <path class="hotspot" tabindex="0" role="button" aria-label="Stromabnehmer" data-part="strom" d="M410 70 L450 28 L490 70 M425 47 H476" fill="none" stroke="#1774a6" stroke-width="9"/>
+              <rect class="hotspot" tabindex="0" role="button" aria-label="Klimaanlage" data-part="klima" x="540" y="56" width="110" height="22" rx="8" fill="#4a9dcc"/>
+              <g class="hotspot" tabindex="0" role="button" aria-label="Drehgestell und Federung" data-part="dreh"><rect x="182" y="196" width="170" height="34" rx="12" fill="#596875"/><rect x="606" y="196" width="170" height="34" rx="12" fill="#596875"/></g>
+              <g class="hotspot" tabindex="0" role="button" aria-label="Radsätze" data-part="rad" fill="#26323c"><circle cx="220" cy="240" r="32"/><circle cx="315" cy="240" r="32"/><circle cx="645" cy="240" r="32"/><circle cx="740" cy="240" r="32"/></g>
+              <g class="hotspot" tabindex="0" role="button" aria-label="Bremssystem" data-part="bremse" fill="#d47a28"><circle cx="220" cy="240" r="16"/><circle cx="315" cy="240" r="16"/><circle cx="645" cy="240" r="16"/><circle cx="740" cy="240" r="16"/></g>
+              <rect class="hotspot" tabindex="0" role="button" aria-label="Antrieb" data-part="antrieb" x="362" y="205" width="150" height="40" rx="10" fill="#23825b"/>
+              <line x1="75" y1="266" x2="855" y2="266" stroke="#56616b" stroke-width="7"/><line x1="75" y1="279" x2="855" y2="279" stroke="#9aa3aa" stroke-width="4"/>
+            </svg>
+          </div>
+          <div class="component-detail" id="componentDetail" aria-live="polite"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Energie vom Fahrdraht zum Rad</h2>
+          <p><strong>Oberleitung → Stromabnehmer → Hauptschalter → Transformator → Stromrichter → Fahrmotor → Radsatz</strong></p>
+          <p>Der Stromabnehmer stellt den Kontakt zur Oberleitung her. Der Hauptschalter kann die Hochspannung trennen. Transformator und Stromrichter passen Spannung und Stromart an. Der Fahrmotor wandelt elektrische Energie in Drehbewegung um. Bei elektrischer Bremse können die Motoren generatorisch arbeiten.</p>
+          <div class="info warning"><strong>Lebensgefahr:</strong> Die Oberleitung führt 15.000 Volt. Für Besucher gilt laut Sicherheitshinweisen ein Mindestabstand von drei Metern.</div>
+        </div>
+        <div class="module-footer"><button class="btn secondary" data-prev="prozess">Zurück</button><button class="btn" data-complete="technik" data-next="diagnose">Weiter: Diagnose</button></div>
+      </section>
+
+      <section class="module" id="diagnose" data-index="4">
+        <div class="panel">
+          <div class="eyebrow">Modul 5</div><h2>Verschleiß sehen und verborgene Fehler finden</h2>
+          <div class="grid-3">
+            <div><h3>Sichtprüfung</h3><p>Erkennbar sind etwa lose Teile, Leckagen, Risse an Oberflächen, beschädigte Leitungen oder auffälliger Verschleiß.</p></div>
+            <div><h3>Maßprüfung</h3><p>Radprofil, Spurkranz oder Bauteilspiel werden gemessen und mit zulässigen Grenzwerten verglichen.</p></div>
+            <div><h3>Zerstörungsfreie Prüfung</h3><p>Verfahren wie Ultraschall suchen nach inneren Unregelmäßigkeiten, ohne das Bauteil dabei zu zerstören.</p></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Ultraschallprüfung einer Radsatzwelle</h2>
+          <p>Ein Prüfkopf sendet Schallimpulse in die Welle. An Grenzflächen und möglichen Fehlstellen wird ein Teil der Welle reflektiert. Aus Laufzeit, Richtung und Signalstärke entsteht ein Prüfhinweis. Die fachliche Bewertung übernehmen qualifizierte Prüfer anhand definierter Prüfbedingungen und Referenzen.</p>
+          <div class="ultra" id="ultraDemo" aria-label="Vereinfachte Animation einer Ultraschallprüfung">
+            <div class="shaft"></div><div class="probe" title="Prüfkopf"></div><div class="pulse"></div><div class="flaw"></div><div class="echo" title="vereinfachtes Echo-Signal"></div>
+          </div>
+          <div class="actions"><button class="btn secondary ultra-btn" data-mode="clear">Welle ohne Prüfhinweis</button><button class="btn ultra-btn" data-mode="fault">Mögliche Fehlstelle</button></div>
+          <div class="feedback show ok" id="ultraText">Wähle ein Prüfszenario. Die Darstellung ist bewusst vereinfacht und ersetzt keine reale Prüfauswertung.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel"><h3>Radsatzdiagnose</h3><p>Räder übertragen hohe Kräfte und führen den Zug. Geprüft werden unter anderem Profil, Durchmesser, Rundlauf, Oberflächenzustand, Lager und Radsatzwelle. Das Zusammenspiel von Rad und Schiene beeinflusst Laufstabilität, Verschleiß und Geräusch.</p></div>
+          <div class="panel"><h3>Unterflurradsatzdrehbank</h3><p>Mit ihr lässt sich das Radprofil bearbeiten, ohne den Radsatz vollständig auszubauen. Material wird kontrolliert abgetragen, bis das vorgeschriebene Profil wiederhergestellt ist. Ob eine Bearbeitung ausreicht, hängt vom Befund und den zulässigen Maßen ab.</p></div>
+        </div>
+
+        <div class="panel">
+          <h2>Von Daten zur Entscheidung</h2>
+          <p>Moderne Züge liefern Diagnose- und Zustandsdaten. Sie unterstützen die Fehlersuche, ersetzen aber nicht automatisch die technische Bewertung. Ein wiederkehrender Fehlereintrag kann eine Sichtprüfung, Messung, Funktionsprüfung und Ursachenanalyse auslösen.</p>
+          <details><summary>Vorbeugende Instandhaltung</summary><p>Arbeiten finden nach festgelegten Kriterien statt, bevor ein Ausfall eintritt.</p></details>
+          <details><summary>Zustandsabhängige Instandhaltung</summary><p>Messwerte und tatsächlicher Zustand bestimmen, wann eine Maßnahme notwendig wird.</p></details>
+          <details><summary>Korrektive Instandsetzung</summary><p>Ein bereits festgestellter Fehler oder Schaden wird behoben.</p></details>
+          <details><summary>Predictive Maintenance</summary><p>Datenmodelle sollen einen wahrscheinlichen zukünftigen Zustandsverlauf erkennen. Prognosen müssen technisch bewertet und zuverlässig abgesichert werden.</p></details>
+        </div>
+        <div class="module-footer"><button class="btn secondary" data-prev="technik">Zurück</button><button class="btn" data-complete="diagnose" data-next="icel">Weiter: ICE L</button></div>
+      </section>
+
+      <section class="module" id="icel" data-index="5">
+        <div class="panel">
+          <div class="eyebrow">Modul 6</div><h2>Fallbeispiel ICE L: Das Fahrzeug verändert das Werk</h2>
+          <p>Eine neue Baureihe passt nicht automatisch in vorhandene Arbeitsstände. Beim ICE L mussten technische und logistische Abläufe an konstruktive Unterschiede angepasst werden. Das Beispiel zeigt, wie Fahrzeugentwicklung, Werkstattplanung und Arbeitssicherheit zusammenwirken.</p>
+          <div class="grid-2">
+            <div><h3>Niedrigerer Wagenkasten</h3><p>Der ICE L liegt gegenüber dem ICE 4 etwa 40 Zentimeter niedriger. Arbeitsbühnen und Zugänge benötigen deshalb verstellbare oder ergänzende Elemente, damit sichere Übergänge ohne gefährliche Spalten entstehen.</p></div>
+            <div><h3>Rodal-Fahrwerke</h3><p>Die Losradfahrwerke besitzen einen U-förmigen Tragrahmen. Für Aus- und Einbau sowie innerbetrieblichen Transport wurden besondere Wechsel- und Transportlösungen entwickelt.</p></div>
+            <div><h3>Flexible Arbeitsstände</h3><p>Wechselbrücken und Dacharbeitsbühnen müssen unterschiedliche Fahrzeuggeometrien aufnehmen, ohne den sicheren Zugang zu beeinträchtigen.</p></div>
+            <div><h3>Logistik</h3><p>Ausgebaute Großkomponenten brauchen definierte Wege, geeignete Transportmittel, Lagerflächen und eine abgestimmte Teilelogistik.</p></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Konstruktionsentscheidung</h2>
+          <p>Eine Bühne ist für den ICE 4 ausgelegt. Der ICE L liegt 40 Zentimeter niedriger. Welche Lösung ist technisch am sinnvollsten?</p>
+          <div class="options" id="iceLTask">
+            <label class="option"><input type="radio" name="icel" value="a"> Die Beschäftigten überbrücken den Höhenunterschied mit losen Tritten.</label>
+            <label class="option"><input type="radio" name="icel" value="b"> Die Bühne erhält gesicherte, ausfahrbare und an die Baureihe anpassbare Elemente.</label>
+            <label class="option"><input type="radio" name="icel" value="c"> Der ICE L wird außerhalb der Halle bearbeitet.</label>
+          </div>
+          <button class="btn" id="checkIceL">Entscheidung prüfen</button><div class="feedback" id="iceLFeedback" aria-live="polite"></div>
+        </div>
+        <div class="panel">
+          <h2>Was Studierende der TU Berlin 2026 sahen</h2>
+          <p>Zwei Gruppen mit jeweils rund 20 Studierenden erhielten Einblicke in Instandhaltungsbereiche, Wartungsprozesse und Prüfeinrichtungen. Besonders eindrucksvoll waren die Unterflurbesichtigung eines ICE T sowie die Betrachtung von Laufwerk, Antriebs- und Bremstechnik. Einen Schwerpunkt bildete die Ultraschallprüfung von Radsatzwellen.</p>
+          <p><strong>Unser Beobachtungsauftrag:</strong> Achtet auf die räumliche Zugänglichkeit der Baugruppen, auf Prüfmittel und Dokumentation sowie auf Unterschiede zwischen den im Werk vorhandenen Baureihen.</p>
+        </div>
+        <div class="module-footer"><button class="btn secondary" data-prev="diagnose">Zurück</button><button class="btn" data-complete="icel" data-next="sicherheit">Weiter: Sicherheit</button></div>
+      </section>
+
+      <section class="module" id="sicherheit" data-index="6">
+        <div class="panel">
+          <div class="eyebrow">Modul 7</div><h2>Sicher durch Gleis- und Werkstattbereiche</h2>
+          <p>Das Sicherheitsmodul fasst die verbindlichen Besucherhinweise zusammen. Beantworte alle Situationen richtig. Bei Fehlern kannst du direkt nachbessern.</p>
+          <div class="info warning"><strong>Vier Zahlen und Regeln:</strong> 15.000 Volt · mindestens 3 m Abstand zur Oberleitung · mindestens 5 m Abstand vor stehenden Zügen · Gleise nur auf Anweisung überqueren.</div>
+          <div id="safetyScenarios"></div>
+          <button class="btn" id="checkSafety">Sicherheitscheck auswerten</button>
+          <div class="feedback" id="safetyFeedback" aria-live="polite"></div>
+        </div>
+        <div class="panel">
+          <h2>Weitere verbindliche Hinweise</h2>
+          <div class="grid-2">
+            <ul><li>Gruppe geschlossen halten</li><li>Fahrzeugen unverzüglich Platz machen</li><li>Schienenköpfe und Weichenbereiche nicht betreten</li><li>Abstand zu offenen Arbeitsgruben halten</li><li>Optische und akustische Warnsignale beachten</li></ul>
+            <ul><li>Keine Bauteile, Leitungen oder Schaltschränke berühren</li><li>Keine Bild- oder Tonaufnahmen</li><li>Rauch-, Alkohol- und Rauschmittelverbot</li><li>Nur notwendiges Gepäck mitnehmen</li><li>Nach dem Rundgang Schuhsohlen auf Metallspäne prüfen</li></ul>
+          </div>
+        </div>
+        <div class="module-footer"><button class="btn secondary" data-prev="icel">Zurück</button><button class="btn" data-next="fragen">Weiter: Fragen vorbereiten</button></div>
+      </section>
+
+      <section class="module" id="fragen" data-index="7">
+        <div class="panel">
+          <div class="eyebrow">Modul 8</div><h2>Aus Zuschauen wird fachliches Beobachten</h2>
+          <p>Wähle mindestens zwei Fragen, die du während der Führung stellen möchtest. Gute Fragen beziehen sich auf sichtbare Prozesse, technische Entscheidungen und Schnittstellen.</p>
+          <div class="tablist" id="questionFilters" aria-label="Fragen filtern"></div>
+          <div class="q-list" id="questionList"></div>
+          <h3>Eigene Frage</h3>
+          <textarea id="customQuestion" placeholder="Formuliere eine eigene fachliche Frage …"></textarea>
+          <div class="actions"><button class="btn" id="saveQuestions">Auswahl übernehmen</button><button class="btn secondary" id="printQuestions">Beobachtungsbogen drucken</button></div>
+          <div class="feedback" id="questionFeedback" aria-live="polite"></div>
+        </div>
+        <div class="panel">
+          <h2>Beobachtungsraster für den Rundgang</h2>
+          <div class="grid-2">
+            <div><h3>Technik</h3><p>Welche Baugruppe wird bearbeitet? Welche Beanspruchung oder welcher Fehler ist denkbar? Welches Prüfmittel wird verwendet?</p></div>
+            <div><h3>Prozess</h3><p>Was löst den Arbeitsschritt aus? Welche Informationen und Materialien werden benötigt? Wer muss anschließend übernehmen?</p></div>
+            <div><h3>Sicherheit</h3><p>Wie wird die Anlage gesichert? Welche Abstände, Markierungen oder Freigaben fallen auf?</p></div>
+            <div><h3>Qualität</h3><p>Wie wird das Ergebnis geprüft und dokumentiert? Ist eine zweite Kontrolle erkennbar?</p></div>
+          </div>
+        </div>
+        <div class="module-footer"><button class="btn secondary" data-prev="sicherheit">Zurück</button><button class="btn" data-next="abschluss">Weiter: Abschlusscheck</button></div>
+      </section>
+
+      <section class="module" id="abschluss" data-index="8">
+        <div class="panel">
+          <div class="eyebrow">Modul 9</div><h2>Abschlusscheck</h2>
+          <p>Prüfe, ob die wichtigsten Zusammenhänge sitzen. Wähle jeweils eine Antwort.</p>
+          <div id="finalQuiz"></div>
+          <button class="btn" id="checkQuiz">Ergebnis anzeigen</button>
+          <div class="feedback" id="quizFeedback" aria-live="polite"></div>
+        </div>
+        <div class="panel">
+          <h2>Quellen und fachliche Einordnung</h2>
+          <ul class="source-list">
+            <li><a href="https://www.tu.berlin/schienenfzg/nachrichtendetails/exkursion-zum-deutsche-bahn-ice-werk-rummelsburg-wie-werden-fernverkehrszuege-instandgehalten-1" target="_blank" rel="noopener">TU Berlin: Exkursion zum ICE-Werk, 13.07.2026</a></li>
+            <li><a href="https://www.db-systemtechnik.de/dbst-de/insights-news/referenzen/Instandhaltungswerk-fit-machen-fuer-den-ICE-L-13696200" target="_blank" rel="noopener">DB Systemtechnik: Anpassung des Werkes für den ICE L</a></li>
+            <li><a href="https://www.deutschebahn.com/resource/blob/6846132/6c65b276796dedcdf6a96e937dbe5bb2/ICE-Werk-Rummelsburg-Faktenblatt-data.pdf" target="_blank" rel="noopener">Deutsche Bahn: Faktenblatt ICE-Werk Rummelsburg, Stand 2018</a></li>
+            <li><a href="https://www.berlin.de/sen/web/presse/pressemitteilungen/2019/pressemitteilung.839436.php" target="_blank" rel="noopener">Land Berlin: Ausbau des ICE-Werks, 21.08.2019</a></li>
+          </ul>
+          <p class="small muted">Stand der Lernanwendung: Oktober 2026. Standortzahlen sind mit ihrem Quellenjahr gekennzeichnet. Die dargestellte Prozesskette ist ein didaktisches Modell und keine interne Arbeitsanweisung der DB.</p>
+        </div>
+        <div class="actions no-print"><button class="btn secondary" data-prev="fragen">Zurück</button><button class="btn secondary" id="resetAll">Bearbeitung zurücksetzen</button></div>
+      </section>
+
+      <section class="print-summary" id="printSummary">
+        <h1>Beobachtungsbogen ICE-Werk Berlin-Rummelsburg</h1>
+        <p><strong>Besichtigung:</strong> 28.10.2026, 10:00 Uhr · Treffpunkt S-Bahnhof Betriebsbahnhof Rummelsburg</p>
+        <h2>Meine Fragen</h2><ol id="printQuestionList"></ol>
+        <h2>Beobachtungen</h2>
+        <p>Technische Baugruppe / Tätigkeit:</p><br><hr><br><hr>
+        <p>Prüfverfahren / Werkzeug:</p><br><hr><br><hr>
+        <p>Sicherheitsmaßnahme:</p><br><hr><br><hr>
+        <p>Besonders interessant oder überraschend:</p><br><hr><br><hr>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">Interaktive Vorbereitung · FOT BBS Meppen · Besuch am 28.10.2026</footer>
+
+  <script>
+  (() => {
+    'use strict';
+    const modules = [...document.querySelectorAll('.module')];
+    const navButtons = [...document.querySelectorAll('.nav-btn')];
+    const state = { completed:new Set(), selectedQuestions:[], customQuestion:'', current:'start' };
+
+    function showModule(id){
+      const target=document.getElementById(id); if(!target)return;
+      modules.forEach(m=>m.classList.toggle('active',m.id===id));
+      navButtons.forEach(b=>b.classList.toggle('active',b.dataset.target===id));
+      state.current=id; window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function complete(id){state.completed.add(id);updateProgress()}
+    function updateProgress(){
+      navButtons.forEach(b=>b.classList.toggle('done',state.completed.has(b.dataset.target)));
+      const count=state.completed.size;
+      document.getElementById('progressBar').style.width=(count/modules.length*100)+'%';
+      document.getElementById('progressText').textContent=`${count} von ${modules.length} Modulen`;
+    }
+    navButtons.forEach(b=>b.addEventListener('click',()=>showModule(b.dataset.target)));
+    document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.complete)complete(b.dataset.complete);showModule(b.dataset.next)}));
+    document.querySelectorAll('[data-prev]').forEach(b=>b.addEventListener('click',()=>showModule(b.dataset.prev)));
+
+    const org = {
+      steuerung:{title:'Steuerung und Disposition',text:'Plant Gleisbelegung, Zeitfenster und Arbeitsreihenfolge. Sie verbindet Fahrplan, Fahrzeuge, Personal und Anlagen. Bei ungeplanten Befunden müssen Prioritäten und Folgeprozesse neu abgestimmt werden.',jobs:'Typische Rollen: Disposition, Arbeitsvorbereitung, betriebliche Koordination.'},
+      technik:{title:'Technische Instandhaltung',text:'Fachkräfte prüfen mechanische, elektrische und informationstechnische Systeme. Sie grenzen Fehler ein, führen Arbeiten aus und testen die Funktion.',jobs:'Typische Berufe: Mechatronik, Elektronik, Industriemechanik, Ingenieurwesen.'},
+      bereit:{title:'Bereitstellung',text:'Reinigung, Wasser, Entsorgung, Bordgastronomie und Zugdaten müssen rechtzeitig abgeschlossen sein. Die Tätigkeiten laufen häufig parallel zu technischen Arbeiten.',jobs:'Schnittstellen: Reinigung, Service, Rangierbetrieb, Datenversorgung.'},
+      logistik:{title:'Material und Komponenten',text:'Ersatzteile, Werkzeuge und Großkomponenten müssen am richtigen Arbeitsstand verfügbar sein. Ausbau, Transport, Lagerung und Rückverfolgbarkeit gehören zur Prozessqualität.',jobs:'Schnittstellen: Lager, Einkauf, Werkstatt, externe Lieferanten.'},
+      qualitaet:{title:'Prüfung, Dokumentation und Freigabe',text:'Sicherheitsrelevante Arbeiten brauchen nachvollziehbare Ergebnisse. Messwerte, Befunde, ausgeführte Arbeiten und Funktionsprüfungen werden dokumentiert.',jobs:'Grundgedanke: Nur ein geprüfter und freigegebener Zug darf wieder in den Betrieb.'}
+    };
+    const orgDetail=document.getElementById('orgDetail');
+    function setOrg(key){const o=org[key];orgDetail.innerHTML=`<h3>${o.title}</h3><p>${o.text}</p><p class="small"><strong>${o.jobs}</strong></p>`}
+    document.querySelectorAll('[data-org]').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('[data-org]').forEach(x=>x.setAttribute('aria-selected','false'));t.setAttribute('aria-selected','true');setOrg(t.dataset.org)}));setOrg('steuerung');
+
+    const processSteps=[
+      'Einfahrt und Übernahme des Zuges','Meldungen und festgestellte Mängel erfassen','Arbeitsaufträge planen und priorisieren','Fahrzeug sichern und sicheren Arbeitszustand herstellen','Inspektion und technische Diagnose','Warten, instand setzen oder Komponenten austauschen','Funktionsprüfung und Qualitätskontrolle','Arbeiten dokumentieren und technische Freigabe','Reinigung, Versorgung und Aufrüstung','Fahrt- und Reservierungsdaten übernehmen','Rangieren, abstellen oder zur Fahrt bereitstellen'
+    ];
+    let processOrder=[];
+    const processList=document.getElementById('processList');
+    function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+    function renderProcess(order){processOrder=order;processList.innerHTML='';order.forEach((text,i)=>{const li=document.createElement('li');li.className='process-item';li.innerHTML=`<span>${text}</span><span class="move"><button aria-label="${text} nach oben" data-dir="-1">↑</button><button aria-label="${text} nach unten" data-dir="1">↓</button></span>`;processList.appendChild(li)});processList.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{const j=i+Number(b.dataset.dir);if(j<0||j>=processOrder.length)return;[processOrder[i],processOrder[j]]=[processOrder[j],processOrder[i]];renderProcess(processOrder)}))}
+    renderProcess(shuffle(processSteps));
+    document.getElementById('shuffleProcess').addEventListener('click',()=>renderProcess(shuffle(processSteps)));
+    document.getElementById('checkProcess').addEventListener('click',()=>{const ok=processOrder.every((x,i)=>x===processSteps[i]);showFeedback('processFeedback',ok,ok?'Richtig. Der Ablauf verbindet Befund, sichere Arbeit, Prüfung und Bereitstellung.':'Noch nicht ganz. Beginne mit Übernahme und Befunderfassung. Vor Arbeiten muss der sichere Zustand hergestellt sein; Prüfung und Dokumentation folgen nach der Ausführung.')});
+
+    const sortItems=[
+      ['Radprofil vermessen','Instandhaltung'],['Innenreinigung durchführen','Bereitstellung'],['Bremsfunktion prüfen','Instandhaltung'],['Reservierungsdaten aufspielen','Bereitstellung'],['Ersatzteil und Arbeitsstand koordinieren','Schnittstelle'],['Wasserversorgung und Entsorgung','Bereitstellung'],['Reparatur dokumentieren und freigeben','Instandhaltung'],['Zug rechtzeitig zur Ausfahrt zuführen','Schnittstelle']
+    ];
+    const sortTask=document.getElementById('sortTask');
+    sortItems.forEach((it,i)=>{sortTask.insertAdjacentHTML('beforeend',`<div class="sort-row"><strong>${it[0]}</strong><select data-answer="${it[1]}" aria-label="${it[0]} zuordnen"><option value="">Bitte wählen</option><option>Instandhaltung</option><option>Bereitstellung</option><option>Schnittstelle</option></select></div>`)});
+    document.getElementById('checkSort').addEventListener('click',()=>{const sels=[...sortTask.querySelectorAll('select')];const correct=sels.filter(s=>s.value===s.dataset.answer).length;showFeedback('sortFeedback',correct===sels.length,`${correct} von ${sels.length} Zuordnungen richtig. ${correct===sels.length?'Gut erkannt: Technische und betriebliche Abläufe treffen sich an mehreren Schnittstellen.':'Prüfe besonders, ob eine Tätigkeit den technischen Zustand verändert oder den konkreten Einsatz vorbereitet.'}`)});
+
+    const components={
+      wagen:{title:'Wagenkasten',job:'Trägt Fahrgastraum und Einbauten und überträgt Kräfte.',load:'Betriebs-, Druck- und Schwingungsbeanspruchung; Witterung.',check:'Sichtprüfung, Maßkontrolle und Prüfungen an tragenden Strukturen.',risk:'Schäden können Festigkeit, Dichtheit oder Funktion angrenzender Systeme beeinträchtigen.'},
+      tuer:{title:'Tür- und Einstiegssystem',job:'Sicheres Ein- und Aussteigen sowie geschlossener Zug während der Fahrt.',load:'Viele Schaltzyklen, Verschmutzung, Temperatur und mechanische Belastung.',check:'Funktions-, Sensor- und Verriegelungsprüfung.',risk:'Eine fehlerhafte Tür kann die Abfahrt verhindern oder die Betriebssicherheit gefährden.'},
+      strom:{title:'Stromabnehmer und Hochspannung',job:'Nimmt elektrische Energie aus der Oberleitung auf.',load:'Kontaktkräfte, hohe Geschwindigkeit, Lichtbögen und Witterung.',check:'Verschleiß der Schleifleiste, Geometrie, Mechanik und elektrische Funktion.',risk:'Fehler können Stromversorgung, Oberleitung und Sicherheit beeinträchtigen.'},
+      klima:{title:'Klimatisierung und Lüftung',job:'Regelt Temperatur, Luftaustausch und Komfort.',load:'Dauerbetrieb, Filterbelastung, Temperaturwechsel.',check:'Filter, Kältekreis, Sensoren, Luftstrom und Fehlerspeicher.',risk:'Ausfälle beeinträchtigen Komfort und können einen Wagen betrieblich unbrauchbar machen.'},
+      dreh:{title:'Drehgestell, Federung und Dämpfung',job:'Führt den Wagen im Gleis und nimmt Kräfte zwischen Wagenkasten und Radsatz auf.',load:'Dynamische Kräfte, Stöße, Kurvenfahrt und hohe Laufleistung.',check:'Sicht-, Maß- und Funktionsprüfungen an Lagern, Federn und Dämpfern.',risk:'Fehler beeinflussen Laufstabilität, Komfort und Sicherheit.'},
+      rad:{title:'Radsatz und Radprofil',job:'Trägt, führt und überträgt Kräfte zwischen Zug und Schiene.',load:'Rollkontakt, Bremswärme, hohe Wechselbelastung.',check:'Profil- und Durchmessermessung, Rundlauf, Oberflächen- und Ultraschallprüfung.',risk:'Unzulässiger Verschleiß oder Werkstofffehler sind sicherheitsrelevant.'},
+      bremse:{title:'Bremssystem',job:'Verringert Geschwindigkeit und hält den Zug sicher an.',load:'Reibung, Wärme, Druckwechsel und wiederholte Bremsungen.',check:'Belag- und Scheibenzustand, Pneumatik, Sensorik und Funktionsprüfung.',risk:'Die Bremse ist sicherheitskritisch; Systeme werden überwacht und wirken abgestimmt zusammen.'},
+      antrieb:{title:'Antrieb und Fahrmotor',job:'Wandelt elektrische Energie in Bewegung um.',load:'Drehmoment, Temperatur, Vibration und elektrische Belastung.',check:'Diagnosedaten, Isolation, Lager, Kühlung und Funktionsprüfung.',risk:'Fehler reduzieren Leistung oder führen zur Abschaltung eines Antriebsteils.'}
+    };
+    const componentDetail=document.getElementById('componentDetail');
+    function setComponent(key){const c=components[key];document.querySelectorAll('.hotspot').forEach(h=>h.classList.toggle('active',h.dataset.part===key));componentDetail.innerHTML=`<h3>${c.title}</h3><p><span class="label">Aufgabe</span>${c.job}</p><p><span class="label">Beanspruchung</span>${c.load}</p><p><span class="label">Prüfung</span>${c.check}</p><p><span class="label">Bedeutung</span>${c.risk}</p>`}
+    document.querySelectorAll('.hotspot').forEach(h=>{h.addEventListener('click',()=>setComponent(h.dataset.part));h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setComponent(h.dataset.part)}})});setComponent('rad');
+
+    const ultra=document.getElementById('ultraDemo');
+    document.querySelectorAll('.ultra-btn').forEach(b=>b.addEventListener('click',()=>{ultra.className='ultra scan'+(b.dataset.mode==='fault'?' fault':'');document.getElementById('ultraText').textContent=b.dataset.mode==='fault'?'Ein zusätzliches frühes Echo kann auf eine innere Grenzfläche oder mögliche Fehlstelle hinweisen. Erst die fachliche Auswertung entscheidet über den Befund.':'Das dominierende Echo entsteht vereinfacht am Bauteilende. In der Praxis werden weitere Anzeigen, Geometrie und Referenzsignale berücksichtigt.'}));
+
+    document.getElementById('checkIceL').addEventListener('click',()=>{const v=document.querySelector('input[name="icel"]:checked')?.value;showFeedback('iceLFeedback',v==='b',v==='b'?'Richtig. Fest integrierte und gesicherte Verstellelemente ermöglichen reproduzierbare, baureihenabhängige Arbeitspositionen und minimieren Spalten.':'Nicht fachgerecht. Lose Hilfsmittel oder Arbeiten außerhalb der vorgesehenen Infrastruktur erhöhen Risiken und verschlechtern reproduzierbare Abläufe.')});
+
+    const safetyData=[
+      ['Ein Zug steht. Du möchtest für eine bessere Sicht selbstständig über das Gleis gehen.','Warten und nur nach ausdrücklicher Anweisung überqueren.',['Schnell hinübergehen, solange nichts zu hören ist.','Warten und nur nach ausdrücklicher Anweisung überqueren.','Vorher nur nach links und rechts schauen.'],'Züge können sich geräuscharm nähern. Gleise werden nur auf Anweisung überquert.'],
+      ['Die Gruppe steht vor einem abgestellten Zug. Welcher Abstand gilt?','Mindestens fünf Meter.',['Ein Meter genügt.','Mindestens drei Meter.','Mindestens fünf Meter.'],'Vor stehenden Zügen fordert der Besucherhinweis mindestens fünf Meter Abstand.'],
+      ['Über euch verläuft die Oberleitung mit 15.000 Volt.','Mindestens drei Meter Abstand halten.',['Bauteile dürfen mit Handschuhen berührt werden.','Mindestens drei Meter Abstand halten.','Ein Meter reicht ohne direkten Kontakt.'],'Hochspannung kann auch ohne direkte Berührung lebensgefährlich sein.'],
+      ['Gelbe Leuchten und ein akustisches Signal kündigen eine Fahrzeugbewegung an.','Sofort hinter die gelbe Markierung treten.',['Die Erklärung erst zu Ende hören.','Sofort hinter die gelbe Markierung treten.','Nur das Gleis zügig überqueren.'],'Bei Warnsignalen ist unverzüglich der gekennzeichnete Sicherheitsbereich aufzusuchen.'],
+      ['Du entdeckst einen interessanten Schaltschrank.','Nicht berühren oder öffnen.',['Vorsichtig öffnen, wenn keine Warnlampe leuchtet.','Nur fotografieren.','Nicht berühren oder öffnen.'],'Technische Anlagen können gefährliche Spannungen enthalten. Bildaufnahmen sind ebenfalls untersagt.'],
+      ['Ein Mitschüler bleibt zurück, um eine Maschine genauer anzusehen.','Gruppe informieren und geschlossen beim Personal bleiben.',['Später am Ausgang treffen.','Gruppe informieren und geschlossen beim Personal bleiben.','Allein zurückgehen und ihn holen.'],'Ein eigenständiges Entfernen ist nicht gestattet. Die Gruppe bleibt geschlossen.'],
+      ['Welche Schuhe sind geeignet?','Feste, geschlossene Schuhe ohne hohe Absätze.',['Offene Sportsandalen.','Feste, geschlossene Schuhe ohne hohe Absätze.','Schuhe mit hohen Absätzen.'],'Gitterroste, Metallspäne und Stolperstellen verlangen festes, geschlossenes Schuhwerk.'],
+      ['Du möchtest ein Foto von einem ICE in der Halle machen.','Nicht fotografieren; Bild- und Tonaufnahmen sind verboten.',['Ohne Blitz ist es erlaubt.','Erst später in sozialen Medien teilen.','Nicht fotografieren; Bild- und Tonaufnahmen sind verboten.'],'Das Verbot gilt auf dem Betriebsgelände unabhängig von Blitz oder Veröffentlichungsabsicht.']
+    ];
+    const safetyBox=document.getElementById('safetyScenarios');
+    safetyData.forEach((s,i)=>{safetyBox.insertAdjacentHTML('beforeend',`<div class="scenario"><strong>${i+1}. ${s[0]}</strong><div class="options">${s[2].map((o,j)=>`<label class="option"><input type="radio" name="safe${i}" value="${o.replace(/"/g,'&quot;')}">${o}</label>`).join('')}</div><div class="small muted" id="safeExplain${i}"></div></div>`)});
+    document.getElementById('checkSafety').addEventListener('click',()=>{let score=0;safetyData.forEach((s,i)=>{const v=document.querySelector(`input[name="safe${i}"]:checked`)?.value;const ok=v===s[1];if(ok)score++;document.getElementById(`safeExplain${i}`).innerHTML=`<strong style="color:${ok?'var(--green)':'var(--red)'}">${ok?'Richtig.':'Bitte korrigieren.'}</strong> ${s[3]}`});const ok=score===safetyData.length;showFeedback('safetyFeedback',ok,`${score} von ${safetyData.length} Situationen richtig. ${ok?'Sicherheitsmodul abgeschlossen.':'Korrigiere die markierten Situationen und werte erneut aus.'}`);if(ok)complete('sicherheit')});
+
+    const questions=[
+      ['Organisation','Wie werden technische Instandhaltung, Reinigung, Versorgung und Rangierbewegungen zeitlich koordiniert?'],['Organisation','Welche Aufgaben übernimmt die Bereitstellung beziehungsweise die BSL?'],['Organisation','Was geschieht, wenn ein ungeplanter Schaden den Bereitstellungstermin gefährdet?'],['Diagnose','Welche Fahrzeugdaten stehen bereits vor der Einfahrt zur Fehlerdiagnose zur Verfügung?'],['Diagnose','Wie wird bei einem Fehler vorgegangen, der nur sporadisch auftritt?'],['Diagnose','Wann wird ein Bauteil repariert und wann ausgetauscht?'],['Radsatz','Welche Fehler können bei der Ultraschallprüfung einer Radsatzwelle erkannt werden?'],['Radsatz','Wie wird das Ultraschallprüfsystem kalibriert?'],['Radsatz','Wann wird ein Radprofil nachgedreht und wann ein Radsatz ausgebaut?'],['Bremse & Elektrik','Wie werden mechanische, pneumatische und elektrische Bremsfunktionen gemeinsam geprüft?'],['Bremse & Elektrik','Wie wird vor Arbeiten an der Hochspannungsausrüstung der sichere Zustand hergestellt?'],['Bremse & Elektrik','Wie werden Softwareupdates getestet und freigegeben?'],['ICE L','Welche Anpassung für den ICE L war technisch besonders anspruchsvoll?'],['ICE L','Wie lassen sich Arbeitsstände sicher für unterschiedliche Baureihen nutzen?'],['Berufe & Zukunft','Welche Qualifikation benötigt man für zerstörungsfreie Prüfungen?'],['Berufe & Zukunft','Welche Rolle spielen Sensorik und vorausschauende Instandhaltung künftig?']
+    ];
+    const qList=document.getElementById('questionList'),filters=document.getElementById('questionFilters');
+    const cats=['Alle',...new Set(questions.map(q=>q[0]))];
+    cats.forEach((c,i)=>filters.insertAdjacentHTML('beforeend',`<button class="tab" data-filter="${c}" aria-selected="${i===0}">${c}</button>`));
+    function renderQuestions(filter='Alle'){qList.innerHTML='';questions.forEach((q,i)=>{if(filter!=='Alle'&&q[0]!==filter)return;qList.insertAdjacentHTML('beforeend',`<label class="q-item"><input type="checkbox" value="${i}" ${state.selectedQuestions.includes(q[1])?'checked':''}><span><span class="label">${q[0]}</span>${q[1]}</span></label>`)})}
+    qList.addEventListener('change',e=>{if(!e.target.matches('input[type="checkbox"]'))return;const text=questions[Number(e.target.value)][1];if(e.target.checked&&!state.selectedQuestions.includes(text))state.selectedQuestions.push(text);if(!e.target.checked)state.selectedQuestions=state.selectedQuestions.filter(q=>q!==text)});
+    filters.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;filters.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');renderQuestions(b.dataset.filter)});renderQuestions();
+    document.getElementById('saveQuestions').addEventListener('click',()=>{state.customQuestion=document.getElementById('customQuestion').value.trim();const count=state.selectedQuestions.length+(state.customQuestion?1:0);const ok=count>=2;showFeedback('questionFeedback',ok,ok?`${count} Fragen für deinen Beobachtungsbogen übernommen.`:'Wähle mindestens zwei Fragen oder ergänze eigene.');if(ok)complete('fragen');updatePrintQuestions()});
+    function updatePrintQuestions(){const ol=document.getElementById('printQuestionList');ol.innerHTML='';const all=[...state.selectedQuestions,...(state.customQuestion?[state.customQuestion]:[])];(all.length?all:['Noch keine Fragen ausgewählt.']).forEach(q=>{const li=document.createElement('li');li.textContent=q;ol.appendChild(li)})}
+    document.getElementById('printQuestions').addEventListener('click',()=>{const count=state.selectedQuestions.length+(document.getElementById('customQuestion').value.trim()?1:0);if(count<2){document.getElementById('saveQuestions').click();return}document.getElementById('saveQuestions').click();updatePrintQuestions();window.print()});
+
+    const quiz=[
+      ['Welche Aussage beschreibt Instandhaltung am besten?',['Nur die Außenreinigung','Technischen Zustand feststellen, erhalten oder wiederherstellen','Nur das Rangieren'],'Technischen Zustand feststellen, erhalten oder wiederherstellen'],
+      ['Was gehört typischerweise zur Bereitstellung?',['Reservierungsdaten aufspielen','Radsatzwelle ultraschallprüfen','Bremsbelag vermessen'],'Reservierungsdaten aufspielen'],
+      ['Warum folgt nach einer Reparatur eine Funktionsprüfung?',['Damit das Werkzeug gezählt werden kann','Damit Wirkung und sicherer Zustand nachgewiesen werden','Damit der Zug gereinigt werden kann'],'Damit Wirkung und sicherer Zustand nachgewiesen werden'],
+      ['Was kann Ultraschall besonders unterstützen?',['Innere Unregelmäßigkeiten erkennen','Farbe des Werkstoffs bestimmen','Reservierungsdaten übertragen'],'Innere Unregelmäßigkeiten erkennen'],
+      ['Wozu dient eine Unterflurradsatzdrehbank?',['Radprofil bearbeiten, ohne den Radsatz vollständig auszubauen','Züge von außen waschen','Stromabnehmer wechseln'],'Radprofil bearbeiten, ohne den Radsatz vollständig auszubauen'],
+      ['Was verändert der niedrigere ICE-L-Wagenkasten im Werk?',['Nur die Farbe der Arbeitsstände','Zugänge und Arbeitsbühnen müssen angepasst werden','Es sind keine Anpassungen nötig'],'Zugänge und Arbeitsbühnen müssen angepasst werden'],
+      ['Wie groß ist der Besucher-Mindestabstand zur Oberleitung?',['1 Meter','3 Meter','5 Meter'],'3 Meter'],
+      ['Was ist bei Warnsignalen in der Halle zu tun?',['Hinter die gelbe Markierung treten','Schnell das Gleis überqueren','Die Arbeit fotografieren'],'Hinter die gelbe Markierung treten'],
+      ['Was ist bei einer wiederkehrenden Diagnosemeldung sinnvoll?',['Meldung löschen und ignorieren','Befund prüfen, Messungen durchführen und Ursache analysieren','Sofort jeden Zug ausmustern'],'Befund prüfen, Messungen durchführen und Ursache analysieren'],
+      ['Warum ist Dokumentation wichtig?',['Sie ersetzt jede Prüfung','Sie macht Befunde, Arbeiten und Freigaben nachvollziehbar','Sie dient nur der Abrechnung'],'Sie macht Befunde, Arbeiten und Freigaben nachvollziehbar']
+    ];
+    const quizBox=document.getElementById('finalQuiz');
+    quiz.forEach((q,i)=>quizBox.insertAdjacentHTML('beforeend',`<div class="quiz-card"><strong>${i+1}. ${q[0]}</strong><div class="options">${q[1].map(o=>`<label class="option"><input type="radio" name="quiz${i}" value="${o.replace(/"/g,'&quot;')}">${o}</label>`).join('')}</div></div>`));
+    document.getElementById('checkQuiz').addEventListener('click',()=>{let score=0;quiz.forEach((q,i)=>{if(document.querySelector(`input[name="quiz${i}"]:checked`)?.value===q[2])score++});const pct=Math.round(score/quiz.length*100);const ok=pct>=80;showFeedback('quizFeedback',ok,`${score} von ${quiz.length} richtig (${pct} %). ${ok?'Du bist fachlich und organisatorisch gut auf die Besichtigung des ICE-Werks vorbereitet.':'Wiederhole besonders die Module Prozess, Diagnose und Sicherheit.'}`);if(ok){complete('abschluss');updatePrintQuestions()}});
+
+    function showFeedback(id,ok,text){const el=document.getElementById(id);el.className=`feedback show ${ok?'ok':'bad'}`;el.textContent=text}
+    document.getElementById('resetAll').addEventListener('click',()=>{if(!confirm('Bearbeitung wirklich zurücksetzen?'))return;state.completed.clear();state.selectedQuestions=[];state.customQuestion='';document.querySelectorAll('input').forEach(i=>i.checked=false);document.querySelectorAll('select').forEach(s=>s.value='');document.querySelectorAll('.feedback').forEach(f=>{if(f.id!=='ultraText')f.className='feedback'});document.getElementById('customQuestion').value='';renderQuestions();renderProcess(shuffle(processSteps));updateProgress();showModule('start')});
+    updateProgress();updatePrintQuestions();
+  })();
+  </script>
+</body>
+</html>
